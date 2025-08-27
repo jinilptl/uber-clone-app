@@ -54,17 +54,7 @@ server/
    npm install
    ```
 
-2. **Configure environment variables:**
-
-   Edit `server/.env`:
-
-   ```
-   PORT=4000
-   MONGODB_URI=mongodb://localhost:27017/uber-clone
-   JWT_SECRET=your_jwt_secret
-   ```
-
-3. **Start the server:**
+2. **Start the server:**
 
    ```sh
    node server.js
