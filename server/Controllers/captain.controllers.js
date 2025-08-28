@@ -4,6 +4,7 @@ import { validationResult } from "express-validator";
 import { BlacklistToken as blackListTokenModel } from "../Models/blacklist.model.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
+import {createCaptain} from "../services/captain.service.js"
 
 const registerCaptain=asyncHandler(async (req, res, next) => {
 
@@ -23,7 +24,7 @@ const registerCaptain=asyncHandler(async (req, res, next) => {
 
     const hashedPassword = await captainModel.hashPassword(password);
 
-    const captain = await captainService.createCaptain({
+    const captain = await createCaptain({
         firstname: fullname.firstname,
         lastname: fullname.lastname,
         email,
@@ -72,13 +73,13 @@ const loginCaptain = asyncHandler(async (req, res, next) => {
         secure:true
     });
 
-    res.status(200).json(new ApiResponse(200,"Captain logged in successfully", { token, captain }));
+    res.status(200).json(new ApiResponse(200,{ token, captain },"Captain logged in successfully"));
 }
 )
 
 
 const getCaptainProfile = asyncHandler(async (req, res, next) => {
-    res.status(200).json(new ApiResponse(200,"Captain profile fetched successfully", { captain: req.captain }));
+    res.status(200).json(new ApiResponse(200,{ captain: req.captain },"Captain profile fetched successfully" ));
 })
 
 const logoutCaptain = asyncHandler(async (req, res, next) => {
@@ -88,7 +89,7 @@ const logoutCaptain = asyncHandler(async (req, res, next) => {
 
     res.clearCookie('token');
 
-    res.status(200).json(new ApiResponse(200,"Logout successfully"));
+    res.status(200).json(new ApiResponse(200,{},"Logout successfully"));
 })
 
 export {registerCaptain, loginCaptain,getCaptainProfile,logoutCaptain};

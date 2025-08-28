@@ -1,7 +1,7 @@
 import { Captain as captainModel } from "../models/captain.model.js";
 
 
-const createCaptain = async ({
+export const createCaptain = async ({
     firstname, lastname, email, password, color, plate, capacity, vehicleType
 }) => {
     if (!firstname || !email || !password || !color || !plate || !capacity || !vehicleType) {

@@ -1,8 +1,8 @@
 import {User as userModel} from '../Models/user.model.js';
 import asyncHandler from "../utils/asyncHandler.js"
 import ApiResponse from '../utils/ApiResponse.js';
-import ApiError from "../utils/ApiError.js"
-import { createUser } from '../services/user.service.js';
+import ApiError from "../utils/ApiError.js";
+import { createUser} from "../services/user.service.js"
 import { validationResult } from 'express-validator';
 import { BlacklistToken as blackListTokenModel} from '../Models/blacklist.model.js';
 
@@ -24,7 +24,7 @@ const register = asyncHandler(async (req,res)=>{
 
     const hashedPassword = await userModel.hashPassword(password);
 
-    const user = await userService.createUser({
+    const user = await createUser({
         firstname: fullname.firstname,
         lastname: fullname.lastname,
         email,
@@ -85,8 +85,9 @@ const logoutUser=asyncHandler(async (req,res)=>{
 const getUserProfile = async (req, res) => {
    // Handle getting user profile
    const user=req.user;
+   console.log("user is for get route", user);
 
-   return res.status(200,new ApiResponse(200,user,"userData fetch succesfully"))
+   return res.status(200).json(new ApiResponse(200,user,"user profile fetched successfully"));
 };
 
 export {register,login,logoutUser,getUserProfile};
