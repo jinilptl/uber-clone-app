@@ -1,27 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
+import axios from "axios";
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const { user, setUser } = useContext(UserContext);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("data is ", firstName, lastName, email, password);
-    setUserData({
+
+    let newUser = {
       fullname: {
         firstname: firstName,
         lastname: lastName,
       },
       email: email,
       password: password,
-    });
+    };
+    console.log("new user obj ", newUser);
 
-    console.log("useedta is ", userData);
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/api/v1/user/register`,
+      newUser
+    );
+
+    console.log("register response is ", response);
+    if (response.status === 201) {
+      let data = response.data.data;
+
+      setUser(data.user);
+
+      navigate("/login");
+    }
 
     setFirstName("");
     setEmail("");

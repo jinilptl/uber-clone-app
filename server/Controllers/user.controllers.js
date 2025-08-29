@@ -61,6 +61,7 @@ const login = async (req, res) => {
     }
 
     const token = user.generateAuthToken();
+    user.password=undefined
 
     res.cookie('token', token, {
         httpOnly: true,
