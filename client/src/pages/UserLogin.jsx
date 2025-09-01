@@ -26,6 +26,8 @@ const UserLogin = () => {
       let data=response.data.data
       setUser(data.user)
       let token=JSON.stringify(data.token)
+      console.log("data token in login ",data.token);
+      
       localStorage.setItem('token',token)
 
       navigate('/home')

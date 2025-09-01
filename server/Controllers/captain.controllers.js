@@ -42,7 +42,7 @@ const registerCaptain=asyncHandler(async (req, res, next) => {
         secure:true
         
     });
-res.status(201).json(new ApiResponse(201,"Captain registered successfully", { token, captain }));
+res.status(201).json(new ApiResponse(201,{ token, captain },"Captain registered successfully", ));
 })
 
 

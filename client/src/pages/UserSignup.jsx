@@ -34,6 +34,7 @@ const UserSignup = () => {
     if (response.status === 201) {
       let data = response.data.data;
 
+      localStorage.setItem("token", data.token);
       setUser(data.user);
 
       navigate("/login");

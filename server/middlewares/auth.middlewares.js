@@ -7,7 +7,8 @@ import { Captain as captainModel } from "../models/captain.model.js";
 const authUser = async (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
- 
+   console.log("token in authuser ",token);
+   
   
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -32,8 +33,9 @@ const authUser = async (req, res, next) => {
 };
 
 const authCaptain = async (req, res, next) => {
-  const token = req.cookies.token || req.headers.Authorization?.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
+  console.log("token is in authCaptain ", token);
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
